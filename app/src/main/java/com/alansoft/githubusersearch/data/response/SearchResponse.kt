@@ -36,9 +36,9 @@ package com.alansoft.githubusersearch.data.response
 data class SearchResponse(
     val total_count: Int,
     val incomplete_results: Boolean,
-    val items: List<Items>?
+    val items: List<Item>?
 )
 
-data class Items(
+data class Item(
     val login: String?
 )
