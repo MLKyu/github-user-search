@@ -40,17 +40,11 @@ class PlaceholderFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
         setRecyclerAdapter()
-        subscribe()
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu_items, menu)
         setSearchMenu(menu)
-    }
-
-    private fun subscribe() {
-
-
     }
 
     private fun setRecyclerAdapter() {
@@ -73,7 +67,7 @@ class PlaceholderFragment : Fragment() {
     private fun setSearchMenu(menu: Menu) {
         val searchItem = menu.findItem(R.id.action_search)
         (searchItem.actionView as SearchView).run {
-            queryHint = "포켓몬을 검색 하세요."
+            queryHint = "검색"
             setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(query: String): Boolean {
                     return false

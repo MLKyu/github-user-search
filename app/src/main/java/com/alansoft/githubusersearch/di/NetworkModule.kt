@@ -1,6 +1,7 @@
 package com.alansoft.githubusersearch.di
 
 import android.util.Log
+import com.alansoft.githubusersearch.data.api.SearchApi
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
@@ -57,8 +58,7 @@ object NetworkModule {
             .client(client)
             .build()
 
-//    @Singleton
-//    @Provides
-//    fun providePokeApi(retrofit: Retrofit): PokeApi = retrofit.create(PokeApi::class.java)
-
+    @Singleton
+    @Provides
+    fun provideSearchApi(retrofit: Retrofit): SearchApi = retrofit.create(SearchApi::class.java)
 }
