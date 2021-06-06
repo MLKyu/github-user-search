@@ -33,7 +33,7 @@ class PageAdapter(private val itemCallback: ((Item) -> Unit)?) :
                 currentItem?.let {
                     it.like = !it.like
                     setVariable(BR.item, it)
-                    itemCallback?.invoke(it)
+                    itemCallback?.invoke(it.copy())
                 }
             }
         }

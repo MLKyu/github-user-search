@@ -1,5 +1,6 @@
 package com.alansoft.githubusersearch.ba
 
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
@@ -66,13 +67,21 @@ object BindingAdapter {
 
     @JvmStatic
     @BindingAdapter("selectItem")
-    fun bindSelectItem(view: RecyclerView, selectItem: Item) {
+    fun bindSelectItem(view: RecyclerView, selectItem: Item?) {
+        if (selectItem == null) {
+            return
+        }
         (view.adapter as? PageAdapter)?.run {
-            currentList.forEach {
-                if (it.id == selectItem.id && it.login == selectItem.login && it.like != selectItem.like) {
-
-                }
+            val newList = ArrayList(currentList)
+            val selectIndex =
+                currentList.indexOfFirst { item -> item.id == selectItem.id && item.login == selectItem.login && item.like != selectItem.like }
+            Log.d("sadfasdfasdfasdfasdf", "asdfsdfasdf $selectIndex")
+            Log.d("sadfasdfasdfasdfasdf", "asdfsdfasdf $selectItem")
+            if (selectIndex < 0) {
+                return
             }
+            newList[selectIndex] = selectItem
+            submitList(newList)
         }
     }
 }
