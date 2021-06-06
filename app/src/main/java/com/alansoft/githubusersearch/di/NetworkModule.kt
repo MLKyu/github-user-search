@@ -38,7 +38,7 @@ object NetworkModule {
             .addInterceptor(Interceptor {
                 val originalRequest = it.request()
                 val request = originalRequest.newBuilder().url(originalRequest.url).build()
-                Log.d("OkHttp", request.toString())
+                Log.d("OkHttp3", request.toString())
                 it.proceed(request)
             })
             .build()

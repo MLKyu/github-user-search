@@ -27,11 +27,9 @@ class MainRepository @Inject constructor(
         } else {
             emit(Resource.success(response))
         }
-    }.onStart {
     }.retry(2) { cause ->
         cause is IOException
     }.catch { e ->
         emit(Resource.error(e))
-    }.onCompletion {
     }.flowOn(Dispatchers.IO)
 }

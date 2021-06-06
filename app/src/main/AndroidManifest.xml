@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.alansoft.githubusersearch">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".app.GithubUserSearchApp"
         android:allowBackup="true"
@@ -11,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GitHubUserSearch">
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/Theme.GitHubUserSearch.NoActionBar">
             <intent-filter>

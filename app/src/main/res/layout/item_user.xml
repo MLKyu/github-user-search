@@ -30,6 +30,7 @@
                 android:scaleType="centerCrop"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                app:loadImg="@{item.avatarUrl}"
                 tools:src="@tools:sample/avatars" />
 
             <com.google.android.material.textview.MaterialTextView
@@ -38,6 +39,7 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
+                android:text="@{item.login}"
                 app:layout_constraintBottom_toBottomOf="@+id/thumbnail"
                 app:layout_constraintLeft_toRightOf="@+id/thumbnail"
                 app:layout_constraintRight_toLeftOf="@+id/userLike"

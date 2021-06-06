@@ -1,26 +1,26 @@
 package com.alansoft.githubusersearch.ui.main
 
 import android.os.Bundle
-import android.view.*
-import androidx.appcompat.widget.SearchView
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.alansoft.githubusersearch.R
+import com.alansoft.githubusersearch.Utils.BUNDLE_QUERY
+import com.alansoft.githubusersearch.Utils.REQUEST_KEY
 import com.alansoft.githubusersearch.databinding.FragmentMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 
-/**
- * A placeholder fragment containing a simple view.
- */
 @AndroidEntryPoint
 class PlaceholderFragment : Fragment() {
-
     private lateinit var pageViewModel: PageViewModel
-    private var _binding: FragmentMainBinding? = null
-    private val binding get() = _binding!!
-    private val adapter: PageAdapter = PageAdapter(this::onItemClicked)
+    private lateinit var binding: FragmentMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         pageViewModel = ViewModelProvider(this).get(PageViewModel::class.java).apply {
@@ -32,19 +32,31 @@ class PlaceholderFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentMainBinding.inflate(inflater, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_main, container, false)
+        binding.lifecycleOwner = viewLifecycleOwner
+        binding.adapter = PageAdapter(this::onItemClicked)
+        binding.viewModel = pageViewModel
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setHasOptionsMenu(true)
-        setRecyclerAdapter()
-    }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.menu_items, menu)
-        setSearchMenu(menu)
+        setFragmentResultListener(REQUEST_KEY) { key, bundle ->
+            if (key == REQUEST_KEY) {
+                val query = bundle.getString(BUNDLE_QUERY)
+                query?.let {
+                    if (it.isEmpty()) {
+                        pageViewModel.setQuery("")
+                        binding.adapter?.submitList(null)
+                    } else {
+                        pageViewModel.setQuery(it)
+                    }
+                }
+            }
+        }
+
+        setRecyclerAdapter()
     }
 
     private fun setRecyclerAdapter() {
@@ -56,33 +68,16 @@ class PlaceholderFragment : Fragment() {
                     val layoutManager = recyclerView.layoutManager as LinearLayoutManager
                     val lastPosition = layoutManager.findLastVisibleItemPosition()
                     if (lastPosition == (adapter?.itemCount ?: RecyclerView.NO_POSITION) - 1) {
-//                        viewModel.loadNextPage()
+                        pageViewModel.loadNextPage()
                     }
-                }
-            })
-            adapter = this@PlaceholderFragment.adapter
-        }
-    }
-
-    private fun setSearchMenu(menu: Menu) {
-        val searchItem = menu.findItem(R.id.action_search)
-        (searchItem.actionView as SearchView).run {
-            queryHint = "검색"
-            setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-                override fun onQueryTextSubmit(query: String): Boolean {
-                    return false
-                }
-
-                override fun onQueryTextChange(newText: String): Boolean {
-                    return true
                 }
             })
         }
     }
 
     private fun onItemClicked() {
-    }
 
+    }
 
     companion object {
         private const val ARG_SECTION_NUMBER = "section_number"
@@ -95,10 +90,5 @@ class PlaceholderFragment : Fragment() {
                 }
             }
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }
