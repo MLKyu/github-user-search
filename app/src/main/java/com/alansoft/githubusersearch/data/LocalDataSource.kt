@@ -21,7 +21,7 @@ class LocalDataSource @Inject constructor() {
     }
 
     fun getItems(): List<Item> {
-        return cached
+        return cached.toList()
     }
 
     fun isExistAndFresh(item: Item): Boolean {

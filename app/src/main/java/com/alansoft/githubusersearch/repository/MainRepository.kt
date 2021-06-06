@@ -29,6 +29,16 @@ class MainRepository @Inject constructor(
         if (response.items.isNullOrEmpty()) {
             emit(Resource.empty())
         } else {
+            if (!local.getItems().isNullOrEmpty()) {
+                local.getItems().forEach { localItme ->
+                    for (item in response.items) {
+                        if (localItme.id == item.id) {
+                            item.like = true
+                            break
+                        }
+                    }
+                }
+            }
             emit(Resource.success(response))
         }
     }.retry(2) { cause ->
@@ -50,7 +60,7 @@ class MainRepository @Inject constructor(
         if (local.isNullOrEmpty()) {
             emit(Resource.empty())
         } else {
-            emit(Resource.success(SearchResponse(local.size, false, local.toList())))
+            emit(Resource.success(SearchResponse(local.size, false, local)))
         }
     }.flowOn(Dispatchers.IO)
 

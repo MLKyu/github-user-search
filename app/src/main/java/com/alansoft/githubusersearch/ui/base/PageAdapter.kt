@@ -32,7 +32,7 @@ class PageAdapter(private val itemCallback: ((Item) -> Unit)?) :
                 val currentItem = getItem()
                 currentItem?.let {
                     it.like = !it.like
-                    setVariable(BR.item, it)
+                    userLike.isSelected = it.like
                     itemCallback?.invoke(it)
                 }
             }
