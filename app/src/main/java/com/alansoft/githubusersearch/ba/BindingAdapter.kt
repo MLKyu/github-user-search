@@ -72,13 +72,13 @@ object BindingAdapter {
         }
         (view.adapter as? PageAdapter)?.run {
 //            val newList = currentList.toMutableList()
-//            val selectIndex =
-//                currentList.indexOfFirst { item -> item.id == selectItem.id && item.login == selectItem.login }
+            val selectIndex =
+                currentList.indexOfFirst { item -> item.id == selectItem.id && item.login == selectItem.login }
 //            Log.d("sadfasdfasdfasdfasdf", "asdfsdfasdf $selectIndex")
 //            Log.d("sadfasdfasdfasdfasdf", "asdfsdfasdf $selectItem")
-//            if (selectIndex < 0) {
-//                return
-//            }
+            if (selectIndex < 0) {
+                return
+            }
 //            Log.d("sadfasdfasdfasdfasdf", "asdfsdfasdf ${newList.get(selectIndex)}")
 //            newList[selectIndex] = selectItem
 //            submitList(newList)
