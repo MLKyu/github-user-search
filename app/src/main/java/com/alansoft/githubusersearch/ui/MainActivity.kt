@@ -9,12 +9,12 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.alansoft.githubusersearch.R
-import com.alansoft.githubusersearch.Utils.BUNDLE_QUERY
-import com.alansoft.githubusersearch.Utils.REQUEST_KEY
-import com.alansoft.githubusersearch.Utils.TAB_TITLES
 import com.alansoft.githubusersearch.databinding.ActivityMainBinding
 import com.alansoft.githubusersearch.ui.main.PlaceholderFragment
 import com.alansoft.githubusersearch.ui.my.MyFragment
+import com.alansoft.githubusersearch.utils.BUNDLE_QUERY
+import com.alansoft.githubusersearch.utils.REQUEST_KEY
+import com.alansoft.githubusersearch.utils.TAB_TITLES
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 

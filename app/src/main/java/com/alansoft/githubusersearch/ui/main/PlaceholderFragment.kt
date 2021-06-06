@@ -11,12 +11,12 @@ import androidx.fragment.app.setFragmentResultListener
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.alansoft.githubusersearch.R
-import com.alansoft.githubusersearch.Utils.BUNDLE_QUERY
-import com.alansoft.githubusersearch.Utils.REQUEST_KEY
 import com.alansoft.githubusersearch.data.response.Item
 import com.alansoft.githubusersearch.databinding.FragmentMainBinding
 import com.alansoft.githubusersearch.ui.base.PageAdapter
 import com.alansoft.githubusersearch.ui.base.PageViewModel
+import com.alansoft.githubusersearch.utils.BUNDLE_QUERY
+import com.alansoft.githubusersearch.utils.REQUEST_KEY
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

@@ -1,13 +1,13 @@
 package com.alansoft.githubusersearch.ui.base
 
 import androidx.lifecycle.*
-import com.alansoft.githubusersearch.Utils.FIRST_PAGE
 import com.alansoft.githubusersearch.data.Resource
 import com.alansoft.githubusersearch.data.request.SearchRequest
 import com.alansoft.githubusersearch.data.response.Item
 import com.alansoft.githubusersearch.data.response.SearchResponse
 import com.alansoft.githubusersearch.extension.to
 import com.alansoft.githubusersearch.repository.MainRepository
+import com.alansoft.githubusersearch.utils.FIRST_PAGE
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*

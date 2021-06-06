@@ -1,4 +1,4 @@
-package com.alansoft.githubusersearch.Utils
+package com.alansoft.githubusersearch.utils
 
 import com.alansoft.githubusersearch.R
 
