@@ -1,8 +1,8 @@
 package com.alansoft.githubusersearch.extension
 
+import android.content.Context
 import android.widget.ImageView
 import android.widget.Toast
-import androidx.fragment.app.Fragment
 import com.alansoft.githubusersearch.data.request.SearchRequest
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
@@ -19,8 +19,8 @@ fun ImageView.loadWithThumbnail(uri: String?) {
         .into(this)
 }
 
-fun Fragment.toast(message: String) {
-    Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+fun Context.toast(message: String) {
+    Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
 }
 
 infix fun String.to(that: Int): SearchRequest = SearchRequest(this, that)

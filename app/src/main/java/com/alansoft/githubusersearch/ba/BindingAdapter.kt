@@ -8,6 +8,7 @@ import com.alansoft.githubusersearch.data.Resource
 import com.alansoft.githubusersearch.data.response.Item
 import com.alansoft.githubusersearch.data.response.SearchResponse
 import com.alansoft.githubusersearch.extension.loadWithThumbnail
+import com.alansoft.githubusersearch.extension.toast
 import com.alansoft.githubusersearch.ui.base.PageAdapter
 import com.google.android.material.textview.MaterialTextView
 
@@ -41,7 +42,7 @@ object BindingAdapter {
                 (view.adapter as? PageAdapter)?.submitList(emptyList())
             }
             is Resource.Error -> {
-
+                view.context?.toast(response.exception.message.toString())
             }
         }
     }
@@ -59,7 +60,7 @@ object BindingAdapter {
             }
             is Resource.Error -> {
                 view.visibility = View.VISIBLE
-                view.text = response.exception.message
+                view.context?.toast(response.exception.message.toString())
             }
         }
     }
@@ -74,12 +75,9 @@ object BindingAdapter {
             val newList = currentList.toMutableList()
             val selectIndex =
                 currentList.indexOfFirst { item -> item.id == selectItem.id && item.login == selectItem.login }
-//            Log.d("sadfasdfasdfasdfasdf", "asdfsdfasdf $selectIndex")
-//            Log.d("sadfasdfasdfasdfasdf", "asdfsdfasdf $selectItem")
             if (selectIndex < 0) {
                 return
             }
-//            Log.d("sadfasdfasdfasdfasdf", "asdfsdfasdf ${newList.get(selectIndex)}")
             newList[selectIndex] = selectItem
             submitList(newList)
             notifyDataSetChanged()
