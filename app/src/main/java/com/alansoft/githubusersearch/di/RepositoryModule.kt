@@ -1,5 +1,6 @@
 package com.alansoft.githubusersearch.di
 
+import com.alansoft.githubusersearch.data.LocalDataSource
 import com.alansoft.githubusersearch.data.SearchDataSource
 import com.alansoft.githubusersearch.data.api.SearchApi
 import com.alansoft.githubusersearch.repository.MainRepository
@@ -22,5 +23,14 @@ object RepositoryModule {
 
     @ViewModelScoped
     @Provides
-    fun provideSearchRepository(remote: SearchDataSource) = MainRepository(remote)
+    fun provideLocalDataSource() = LocalDataSource()
+
+    @ViewModelScoped
+    @Provides
+    fun provideSearchRepository(
+        remote: SearchDataSource,
+        local: LocalDataSource
+    ) = MainRepository(remote, local)
+
+
 }

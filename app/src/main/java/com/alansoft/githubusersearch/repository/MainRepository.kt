@@ -1,6 +1,7 @@
 package com.alansoft.githubusersearch.repository
 
 import androidx.annotation.WorkerThread
+import com.alansoft.githubusersearch.data.LocalDataSource
 import com.alansoft.githubusersearch.data.Resource
 import com.alansoft.githubusersearch.data.SearchDataSource
 import com.alansoft.githubusersearch.data.request.SearchRequest
@@ -15,8 +16,10 @@ import javax.inject.Inject
  * Copyright © 2021 Dreamus Company. All rights reserved.
  */
 class MainRepository @Inject constructor(
-    private val remote: SearchDataSource
+    private val remote: SearchDataSource,
+    private val local: LocalDataSource
 ) {
+
     @WorkerThread
     fun getSearchUsers(
         request: SearchRequest
@@ -32,4 +35,10 @@ class MainRepository @Inject constructor(
     }.catch { e ->
         emit(Resource.error(e))
     }.flowOn(Dispatchers.IO)
+
+//    fun insertItem(item: Item) = flow {
+//        if(local.pushItem(item)){
+//            emit(Resource.success())
+//        }
+//    }
 }
