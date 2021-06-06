@@ -21,6 +21,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class PlaceholderFragment : Fragment() {
+    var testResult: String? = null
     private val pageViewModel: PageViewModel by activityViewModels()
     private lateinit var binding: FragmentMainBinding
 
@@ -40,8 +41,8 @@ class PlaceholderFragment : Fragment() {
 
         setFragmentResultListener(REQUEST_KEY) { key, bundle ->
             if (key == REQUEST_KEY) {
-                val query = bundle.getString(BUNDLE_QUERY)
-                query?.let {
+                val testResult = bundle.getString(BUNDLE_QUERY)
+                testResult?.let {
                     if (it.isEmpty()) {
                         pageViewModel.setQuery("")
                         binding.adapter?.submitList(emptyList())
