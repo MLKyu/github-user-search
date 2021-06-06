@@ -1,6 +1,5 @@
 package com.alansoft.githubusersearch.ba
 
-import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
@@ -35,9 +34,7 @@ object BindingAdapter {
         when (response) {
             is Resource.Success -> {
                 view.visibility = View.VISIBLE
-                (view.adapter as? PageAdapter)?.run {
-                    submitList(response.data.items)
-                }
+                (view.adapter as? PageAdapter)?.submitList(response.data.items)
             }
             is Resource.Empty -> {
                 view.visibility = View.GONE
@@ -74,16 +71,18 @@ object BindingAdapter {
             return
         }
         (view.adapter as? PageAdapter)?.run {
-            val newList = currentList.toMutableList()
-            val selectIndex =
-                currentList.indexOfFirst { item -> item.id == selectItem.id && item.login == selectItem.login && item.like != selectItem.like }
-            Log.d("sadfasdfasdfasdfasdf", "asdfsdfasdf $selectIndex")
-            Log.d("sadfasdfasdfasdfasdf", "asdfsdfasdf $selectItem")
-            if (selectIndex < 0) {
-                return
-            }
-            newList[selectIndex] = selectItem
-            submitList(newList)
+//            val newList = currentList.toMutableList()
+//            val selectIndex =
+//                currentList.indexOfFirst { item -> item.id == selectItem.id && item.login == selectItem.login }
+//            Log.d("sadfasdfasdfasdfasdf", "asdfsdfasdf $selectIndex")
+//            Log.d("sadfasdfasdfasdfasdf", "asdfsdfasdf $selectItem")
+//            if (selectIndex < 0) {
+//                return
+//            }
+//            Log.d("sadfasdfasdfasdfasdf", "asdfsdfasdf ${newList.get(selectIndex)}")
+//            newList[selectIndex] = selectItem
+//            submitList(newList)
+            notifyDataSetChanged()
         }
     }
 }

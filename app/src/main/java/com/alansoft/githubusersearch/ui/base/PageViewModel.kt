@@ -1,6 +1,5 @@
 package com.alansoft.githubusersearch.ui.base
 
-import android.util.Log
 import androidx.lifecycle.*
 import com.alansoft.githubusersearch.Utils.FIRST_PAGE
 import com.alansoft.githubusersearch.data.Resource
@@ -60,7 +59,7 @@ class PageViewModel @Inject constructor(
         viewModelScope.launch {
             repository.getLocalItems(query)
                 .collectLatest {
-                    _localResults.postValue(it)
+                    _localResults.value = it
                 }
         }
     }
@@ -95,8 +94,7 @@ class PageViewModel @Inject constructor(
                 }.flowOn(Dispatchers.IO)
                 .collectLatest {
                     if (it) {
-                        Log.d("sadfasdfasdfasdfasdf", "asdfsdfasdf $item")
-                        selectItem.postValue(item)
+                        selectItem.value = item
                         loadLocal()
                     }
                 }
