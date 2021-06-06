@@ -38,6 +38,6 @@ class LocalDataSource @Inject constructor() {
 
     private fun isFresh(index: Int): Boolean {
         cached.removeAt(index)
-        return false
+        return true
     }
 }

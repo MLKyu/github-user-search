@@ -6,27 +6,22 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.setFragmentResultListener
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.alansoft.githubusersearch.R
 import com.alansoft.githubusersearch.Utils.BUNDLE_QUERY
 import com.alansoft.githubusersearch.Utils.REQUEST_KEY
+import com.alansoft.githubusersearch.data.response.Item
 import com.alansoft.githubusersearch.databinding.FragmentMainBinding
+import com.alansoft.githubusersearch.ui.base.PageViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class PlaceholderFragment : Fragment() {
-    private lateinit var pageViewModel: PageViewModel
+    private val pageViewModel: PageViewModel by activityViewModels()
     private lateinit var binding: FragmentMainBinding
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        pageViewModel = ViewModelProvider(this).get(PageViewModel::class.java).apply {
-            setIndex(arguments?.getInt(ARG_SECTION_NUMBER) ?: 1)
-        }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,7 +43,7 @@ class PlaceholderFragment : Fragment() {
                 query?.let {
                     if (it.isEmpty()) {
                         pageViewModel.setQuery("")
-                        binding.adapter?.submitList(null)
+                        binding.adapter?.submitList(emptyList())
                     } else {
                         pageViewModel.setQuery(it)
                     }
@@ -75,20 +70,18 @@ class PlaceholderFragment : Fragment() {
         }
     }
 
-    private fun onItemClicked() {
-
+    private fun onItemClicked(item: Item) {
+        if (item.like) {
+            pageViewModel.insertLike(item)
+        } else {
+            pageViewModel.deleteItem(item)
+        }
     }
 
     companion object {
-        private const val ARG_SECTION_NUMBER = "section_number"
-
         @JvmStatic
-        fun newInstance(sectionNumber: Int): PlaceholderFragment {
-            return PlaceholderFragment().apply {
-                arguments = Bundle().apply {
-                    putInt(ARG_SECTION_NUMBER, sectionNumber)
-                }
-            }
+        fun newInstance(): PlaceholderFragment {
+            return PlaceholderFragment()
         }
     }
 }

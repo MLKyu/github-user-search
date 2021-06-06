@@ -14,6 +14,7 @@ import com.alansoft.githubusersearch.Utils.REQUEST_KEY
 import com.alansoft.githubusersearch.Utils.TAB_TITLES
 import com.alansoft.githubusersearch.databinding.ActivityMainBinding
 import com.alansoft.githubusersearch.ui.main.PlaceholderFragment
+import com.alansoft.githubusersearch.ui.my.MyFragment
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -27,7 +28,10 @@ class MainActivity : AppCompatActivity() {
             viewPager.isUserInputEnabled = false
             viewPager.adapter = object : FragmentStateAdapter(this) {
                 override fun createFragment(position: Int): Fragment {
-                    return PlaceholderFragment.newInstance(position + 1)
+                    return when (position) {
+                        1 -> MyFragment.newInstance()
+                        else -> PlaceholderFragment.newInstance()
+                    }
                 }
 
                 override fun getItemCount(): Int {

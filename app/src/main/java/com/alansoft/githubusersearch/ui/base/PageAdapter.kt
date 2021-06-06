@@ -16,7 +16,7 @@ import com.alansoft.githubusersearch.databinding.ItemUserBinding
  * Created by LEE MIN KYU on 2021/06/05
  * Copyright © 2021 Dreamus Company. All rights reserved.
  */
-class PageAdapter(private val itemCallback: (() -> Unit)?) :
+class PageAdapter(private val itemCallback: ((Item) -> Unit)?) :
     ListAdapter<Item, ViewHolder>(AsyncDifferConfig.Builder(DiffCallback()).build()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -27,11 +27,14 @@ class PageAdapter(private val itemCallback: (() -> Unit)?) :
         val item = getItem(position)
         holder.binding?.run {
             setVariable(BR.item, item)
-            executePendingBindings()
 
             root.setOnClickListener {
-                userLike.isSelected = !userLike.isSelected
-                itemCallback?.invoke()
+                val currentItem = getItem()
+                currentItem?.let {
+                    it.like = !it.like
+                    setVariable(BR.item, it)
+                    itemCallback?.invoke(it)
+                }
             }
         }
     }
@@ -49,7 +52,7 @@ class ViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
 
 private class DiffCallback : DiffUtil.ItemCallback<Item>() {
     override fun areItemsTheSame(oldItem: Item, newItem: Item): Boolean {
-        return oldItem.id == newItem.id && oldItem.login == newItem.login
+        return oldItem.id == newItem.id && oldItem.login == newItem.login && oldItem.like == newItem.like
     }
 
     override fun areContentsTheSame(oldItem: Item, newItem: Item): Boolean {

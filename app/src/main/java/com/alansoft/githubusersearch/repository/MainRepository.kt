@@ -5,6 +5,7 @@ import com.alansoft.githubusersearch.data.LocalDataSource
 import com.alansoft.githubusersearch.data.Resource
 import com.alansoft.githubusersearch.data.SearchDataSource
 import com.alansoft.githubusersearch.data.request.SearchRequest
+import com.alansoft.githubusersearch.data.response.Item
 import com.alansoft.githubusersearch.data.response.SearchResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
@@ -36,9 +37,22 @@ class MainRepository @Inject constructor(
         emit(Resource.error(e))
     }.flowOn(Dispatchers.IO)
 
-//    fun insertItem(item: Item) = flow {
-//        if(local.pushItem(item)){
-//            emit(Resource.success())
-//        }
-//    }
+    fun insertItem(item: Item) = local.pushItem(item)
+
+    @WorkerThread
+    fun getLocalItems(query: String? = null) = flow {
+        val local = if (query == null) {
+            local.getItems()
+        } else {
+            local.getItems().filter { it.login?.contains(query) ?: false }
+        }
+
+        if (local.isNullOrEmpty()) {
+            emit(Resource.empty())
+        } else {
+            emit(Resource.success(SearchResponse(local.size, false, local)))
+        }
+    }.flowOn(Dispatchers.IO)
+
+    fun deleteItem(item: Item) = local.isExistAndFresh(item)
 }
