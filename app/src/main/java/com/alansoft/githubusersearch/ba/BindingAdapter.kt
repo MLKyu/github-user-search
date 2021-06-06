@@ -9,7 +9,7 @@ import com.alansoft.githubusersearch.data.Resource
 import com.alansoft.githubusersearch.data.response.Item
 import com.alansoft.githubusersearch.data.response.SearchResponse
 import com.alansoft.githubusersearch.extension.loadWithThumbnail
-import com.alansoft.githubusersearch.ui.main.PageAdapter
+import com.alansoft.githubusersearch.ui.base.PageAdapter
 import com.google.android.material.textview.MaterialTextView
 
 /**
@@ -35,7 +35,9 @@ object BindingAdapter {
         when (response) {
             is Resource.Success -> {
                 view.visibility = View.VISIBLE
-                (view.adapter as? PageAdapter)?.submitList(response.data.items)
+                (view.adapter as? PageAdapter)?.run {
+                    submitList(response.data.items)
+                }
             }
             is Resource.Empty -> {
                 view.visibility = View.GONE
@@ -72,7 +74,7 @@ object BindingAdapter {
             return
         }
         (view.adapter as? PageAdapter)?.run {
-            val newList = ArrayList(currentList)
+            val newList = currentList.toMutableList()
             val selectIndex =
                 currentList.indexOfFirst { item -> item.id == selectItem.id && item.login == selectItem.login && item.like != selectItem.like }
             Log.d("sadfasdfasdfasdfasdf", "asdfsdfasdf $selectIndex")

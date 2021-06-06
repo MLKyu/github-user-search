@@ -50,7 +50,7 @@ class MainRepository @Inject constructor(
         if (local.isNullOrEmpty()) {
             emit(Resource.empty())
         } else {
-            emit(Resource.success(SearchResponse(local.size, false, local)))
+            emit(Resource.success(SearchResponse(local.size, false, local.toList())))
         }
     }.flowOn(Dispatchers.IO)
 

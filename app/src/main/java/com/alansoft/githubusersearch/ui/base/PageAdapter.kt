@@ -1,4 +1,4 @@
-package com.alansoft.githubusersearch.ui.main
+package com.alansoft.githubusersearch.ui.base
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -33,7 +33,7 @@ class PageAdapter(private val itemCallback: ((Item) -> Unit)?) :
                 currentItem?.let {
                     it.like = !it.like
                     setVariable(BR.item, it)
-                    itemCallback?.invoke(it.copy())
+                    itemCallback?.invoke(it)
                 }
             }
         }

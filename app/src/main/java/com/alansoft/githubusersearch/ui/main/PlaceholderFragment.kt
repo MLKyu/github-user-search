@@ -15,6 +15,7 @@ import com.alansoft.githubusersearch.Utils.BUNDLE_QUERY
 import com.alansoft.githubusersearch.Utils.REQUEST_KEY
 import com.alansoft.githubusersearch.data.response.Item
 import com.alansoft.githubusersearch.databinding.FragmentMainBinding
+import com.alansoft.githubusersearch.ui.base.PageAdapter
 import com.alansoft.githubusersearch.ui.base.PageViewModel
 import dagger.hilt.android.AndroidEntryPoint
 

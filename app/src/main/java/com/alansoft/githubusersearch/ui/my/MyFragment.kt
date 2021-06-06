@@ -10,8 +10,8 @@ import androidx.fragment.app.activityViewModels
 import com.alansoft.githubusersearch.R
 import com.alansoft.githubusersearch.data.response.Item
 import com.alansoft.githubusersearch.databinding.FragmentMyBinding
+import com.alansoft.githubusersearch.ui.base.PageAdapter
 import com.alansoft.githubusersearch.ui.base.PageViewModel
-import com.alansoft.githubusersearch.ui.main.PageAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
