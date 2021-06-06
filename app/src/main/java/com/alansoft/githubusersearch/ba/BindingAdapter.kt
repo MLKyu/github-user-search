@@ -71,7 +71,7 @@ object BindingAdapter {
             return
         }
         (view.adapter as? PageAdapter)?.run {
-//            val newList = currentList.toMutableList()
+            val newList = currentList.toMutableList()
             val selectIndex =
                 currentList.indexOfFirst { item -> item.id == selectItem.id && item.login == selectItem.login }
 //            Log.d("sadfasdfasdfasdfasdf", "asdfsdfasdf $selectIndex")
@@ -80,8 +80,8 @@ object BindingAdapter {
                 return
             }
 //            Log.d("sadfasdfasdfasdfasdf", "asdfsdfasdf ${newList.get(selectIndex)}")
-//            newList[selectIndex] = selectItem
-//            submitList(newList)
+            newList[selectIndex] = selectItem
+            submitList(newList)
             notifyDataSetChanged()
         }
     }

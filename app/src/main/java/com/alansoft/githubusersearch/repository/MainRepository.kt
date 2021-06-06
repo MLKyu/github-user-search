@@ -47,14 +47,14 @@ class MainRepository @Inject constructor(
         emit(Resource.error(e))
     }.flowOn(Dispatchers.IO)
 
-    fun insertItem(item: Item) = local.pushItem(item)
+    fun insertItem(query: String, item: Item) = local.pushItem(query, item)
 
     @WorkerThread
     fun getLocalItems(query: String? = null) = flow {
         val local = if (query == null) {
             local.getItems()
         } else {
-            local.getItems().filter { it.login?.contains(query) ?: false }
+            local.getItems(query)
         }
 
         if (local.isNullOrEmpty()) {

@@ -69,10 +69,10 @@ class PageViewModel @Inject constructor(
             flowOf(item)
                 .debounce(350)
                 .filter {
-                    it != null
+                    query.value.query.isNotEmpty()
                 }.distinctUntilChanged()
                 .map {
-                    repository.insertItem(item)
+                    repository.insertItem(query.value.query, item)
                 }.flowOn(Dispatchers.IO)
                 .collectLatest {
                     if (it) {
